@@ -11,14 +11,31 @@ $j = json_encode($xml);
 $o = json_decode($j);
 
 foreach ($o->reviews->review as $rev) {
-	print book_title_slug($rev->book->title) . "\n";
-	print "Read dates: " . format_date($rev->started_at) . " until " . format_date($rev->read_at) . "\n"; 
-
+	$title = $rev->book->title_without_series;
+	$title_slug = book_title_slug($rev->book->title_without_series);
+	$started = format_date($rev->started_at);
+	$finished = format_date($rev->read_at);
 	$rating = (int) $rev->rating;
-	print "$rating stars\n";
-
 	$review = html_to_md($rev->body);
-	print "$review\n";
+
+	print "$title\n";
+	create_file($title, $title_slug, $started, $finished, $rating, $review);
+}
+
+function create_file($title, $title_slug, $started, $finished, $rating, $review) {
+	$fp = fopen("reviews/$finished-$title_slug.md", "w");
+
+	fwrite($fp, "---\n");
+	fwrite($fp, "layout: review\n");
+	fwrite($fp, "title: Review of $title\n");
+	fwrite($fp, "date: $finished 13:00\n");
+	fwrite($fp, "bookstarted: $started\n");
+	fwrite($fp, "bookfinished: $finished\n");
+	fwrite($fp, "bookrating: $rating\n");
+	fwrite($fp, "---\n\n");
+
+	fwrite($fp, $review);
+	fclose($fp);
 }
 
 function html_to_md($body) {
