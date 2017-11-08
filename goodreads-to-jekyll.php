@@ -19,14 +19,14 @@ foreach ($o->reviews->review as $rev) {
 	$finished = format_date($rev->read_at);
 	$rating = (int) $rev->rating;
 	$review = html_to_md($rev->body);
-	$fullimage = $rev->book->image_url;
-	$smallimage = $rev->book->small_image_url;
+	$bookcoverimage = $rev->book->image_url;
+	$reviewurl = $rev->url;
 
 	print "$title\n";
-	create_file($title, $title_slug, $started, $finished, $rating, $review, $fullimage, $smallimage);
+	create_file($title, $title_slug, $started, $finished, $rating, $review, $bookcoverimage, $reviewurl);
 }
 
-function create_file($title, $title_slug, $started, $finished, $rating, $review, $fullimage, $smallimage) {
+function create_file($title, $title_slug, $started, $finished, $rating, $review, $bookcoverimage, $reviewurl) {
 	$fp = fopen("reviews/$finished-$title_slug.md", "w");
 
 	fwrite($fp, "---\n");
@@ -35,9 +35,9 @@ function create_file($title, $title_slug, $started, $finished, $rating, $review,
 	fwrite($fp, "date: $finished 13:00\n");
 	fwrite($fp, "bookstarted: $started\n");
 	fwrite($fp, "bookfinished: $finished\n");
-	fwrite($fp, "bookrating: $rating\n");
-	fwrite($fp, "bookfullimage: $fullimage\n");
-	fwrite($fp, "booksmallimage: $smallimage\n");
+	fwrite($fp, "rating: $rating\n");
+	fwrite($fp, "bookcoverimage: $bookcoverimage\n");
+	fwrite($fp, "reviewurl: $reviewurl\n");
 	fwrite($fp, "---\n\n");
 
 	fwrite($fp, $review);
