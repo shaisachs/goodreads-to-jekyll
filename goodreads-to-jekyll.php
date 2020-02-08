@@ -2,8 +2,8 @@
 
 // $key= 123;
 // $userid = 9876;
-// https://www.goodreads.com/review/list?v=2&key=$key&id=$userid&shelf=read&per_page=200
-// save that to myreviews.xml
+// visit https://www.goodreads.com/review/list?v=2&key=$key&id=$userid&shelf=read&per_page=200
+// save the output to myreviews.xml
 
 date_default_timezone_set('UTC');
 $xml = simplexml_load_file("myreviews.xml", 'SimpleXMLElement', LIBXML_NOCDATA);
