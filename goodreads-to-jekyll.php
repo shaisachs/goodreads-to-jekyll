@@ -1,6 +1,8 @@
 <?php
 
 // $key= 123;
+
+
 // $userid = 9876;
 // visit https://www.goodreads.com/review/list?v=2&key=$key&id=$userid&shelf=read&per_page=200
 // save the output to myreviews.xml
