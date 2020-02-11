@@ -31,7 +31,7 @@ function create_file($title, $title_slug, $started, $finished, $rating, $review,
 
 	fwrite($fp, "---\n");
 	fwrite($fp, "layout: bookreview\n");
-	fwrite($fp, "title: $title\n");
+	fwrite($fp, "title: \"$title\"\n");
 	fwrite($fp, "date: $finished 13:00\n");
 	fwrite($fp, "bookstarted: $started\n");
 	fwrite($fp, "bookfinished: $finished\n");
