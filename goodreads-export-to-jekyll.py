@@ -45,7 +45,7 @@ def create_file(title, dateread, rating, review):
 	slug = title_slug(title)
 	date_formatted = format_date(dateread)
 
-	filename = "reviews/{dateread}-{title_slug}.md".format(title_slug=slug, dateread=date_formatted)
+	filename = "/src/reviews/{dateread}-{title_slug}.md".format(title_slug=slug, dateread=date_formatted)
 	file = open(filename, "a", encoding='utf8')
 
 	file.write("---\n")
@@ -61,7 +61,7 @@ def create_file(title, dateread, rating, review):
 	file.write(html_to_md(review))
 	file.close()
 
-with open('goodreads_library_export.csv', encoding='utf8') as csvfile:
+with open('/src/goodreads_library_export.csv', encoding='utf8') as csvfile:
 	bookreader = csv.reader(csvfile)
 	for row in bookreader:
 		title = row[1]
